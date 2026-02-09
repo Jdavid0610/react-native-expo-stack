@@ -1,18 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { authService } from '../services';
-import { useAuthStore } from '../store';
-import { storage } from '@shared/storage/mmkv';
+import { useAuth } from '@shared/hooks/useAuth';
 
 export function useLogout() {
-  const logout = useAuthStore((s) => s.logout);
+  const { signOut } = useAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () => authService.logout(),
     onSettled: () => {
-      storage.remove('auth-token');
-      storage.remove('refresh-token');
-      logout();
+      signOut();
       queryClient.clear();
     },
   });

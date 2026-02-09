@@ -3,12 +3,12 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { QueryProvider } from '@shared/query/query-provider';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ActivityIndicator, View } from 'react-native';
-import { useAuthStore } from '@modules/auth/store';
+import { useAuth } from '@shared/hooks/useAuth';
 
 export default function RootLayout() {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-  const isHydrated = useAuthStore((s) => s.isHydrated);
+  const { isAuthenticated, isHydrated } = useAuth();
 
   if (!isHydrated) {
     return (
@@ -20,16 +20,18 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView className="flex-1">
-      <QueryProvider>
-        <StatusBar style="auto" />
-        <Stack screenOptions={{ headerShown: false }}>
-          {isAuthenticated ? (
-            <Stack.Screen name="(tabs)" />
-          ) : (
-            <Stack.Screen name="(auth)" />
-          )}
-        </Stack>
-      </QueryProvider>
+      <SafeAreaProvider>
+        <QueryProvider>
+          <StatusBar style="auto" />
+          <Stack screenOptions={{ headerShown: false }}>
+            {isAuthenticated ? (
+              <Stack.Screen name="(tabs)" />
+            ) : (
+              <Stack.Screen name="(auth)" />
+            )}
+          </Stack>
+        </QueryProvider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

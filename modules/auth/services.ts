@@ -1,16 +1,10 @@
 import { apiClient } from '@shared/api/client';
 import type { ApiResponse } from '@shared/api/client';
+import type { User } from '@shared/storages/auth.store';
 
 export type AuthTokens = {
   accessToken: string;
   refreshToken: string;
-};
-
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  avatar?: string;
 };
 
 type LoginRequest = {

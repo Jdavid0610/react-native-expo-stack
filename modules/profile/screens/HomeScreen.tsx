@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native';
 import { Screen } from '@shared/ui/screen';
-import { useAuthStore } from '@modules/auth/store';
+import { useAuth } from '@shared/hooks/useAuth';
 
 export function HomeScreen() {
-  const user = useAuthStore((s) => s.user);
+  const { user } = useAuth();
 
   return (
     <Screen>

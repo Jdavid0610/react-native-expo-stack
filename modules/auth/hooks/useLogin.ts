@@ -1,18 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 import { authService } from '../services';
-import { useAuthStore } from '../store';
-import { storage } from '@shared/storage/mmkv';
+import { useAuth } from '@shared/hooks/useAuth';
 import type { LoginFormData } from '../schemas/login.schema';
 
 export function useLogin() {
-  const setAuth = useAuthStore((s) => s.setAuth);
+  const { signIn } = useAuth();
 
   return useMutation({
     mutationFn: (data: LoginFormData) => authService.login(data),
     onSuccess: (result) => {
-      storage.set('auth-token', result.accessToken);
-      storage.set('refresh-token', result.refreshToken);
-      setAuth(result.accessToken, result.user);
+      signIn(result.accessToken, result.refreshToken, result.user);
     },
   });
 }
