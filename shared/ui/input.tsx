@@ -1,67 +1,35 @@
 import { forwardRef } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  type TextInputProps,
-  type StyleProp,
-  type ViewStyle,
-} from 'react-native';
+import { Text, TextInput, View, type TextInputProps } from 'react-native';
 
 type Props = TextInputProps & {
   label?: string;
   error?: string;
-  containerStyle?: StyleProp<ViewStyle>;
+  containerClassName?: string;
+  className?: string;
 };
 
 export const Input = forwardRef<TextInput, Props>(
-  ({ label, error, containerStyle, style, ...rest }, ref) => {
+  ({ label, error, containerClassName = '', className = '', ...rest }, ref) => {
     return (
-      <View style={[styles.container, containerStyle]}>
-        {label && <Text style={styles.label}>{label}</Text>}
+      <View className={`gap-1.5 ${containerClassName}`}>
+        {label && (
+          <Text className="ml-1 text-sm font-medium text-[#1C1C1E]">
+            {label}
+          </Text>
+        )}
         <TextInput
           ref={ref}
-          style={[styles.input, error && styles.inputError, style]}
+          className={`rounded-xl border px-4 py-3 text-base text-[#1C1C1E] bg-white min-h-[48px] ${error ? 'border-[#FF3B30]' : 'border-[#D1D1D6]'} ${className}`}
           placeholderTextColor="#8E8E93"
           autoCorrect={false}
           {...rest}
         />
-        {error && <Text style={styles.error}>{error}</Text>}
+        {error && (
+          <Text className="ml-1 text-[13px] text-[#FF3B30]">{error}</Text>
+        )}
       </View>
     );
   },
 );
 
 Input.displayName = 'Input';
-
-const styles = StyleSheet.create({
-  container: {
-    gap: 6,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#1C1C1E',
-    marginLeft: 4,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#D1D1D6',
-    borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: '#1C1C1E',
-    backgroundColor: '#fff',
-    minHeight: 48,
-  },
-  inputError: {
-    borderColor: '#FF3B30',
-  },
-  error: {
-    fontSize: 13,
-    color: '#FF3B30',
-    marginLeft: 4,
-  },
-});

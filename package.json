@@ -8,7 +8,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "tsc --noEmit",
-    "reset-project": "rm -rf node_modules .expo && yarn install"
+    "reset-project": "rm -rf node_modules .expo && yarn install",
+    "prebuild": "rm -rf ios android && expo prebuild"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -22,6 +23,7 @@
     "expo-splash-screen": "^31.0.13",
     "expo-status-bar": "~3.0.9",
     "expo-system-ui": "~6.0.9",
+    "nativewind": "^4.2.1",
     "react": "19.1.0",
     "react-hook-form": "^7.71.1",
     "react-native": "0.81.5",
@@ -39,6 +41,8 @@
   "devDependencies": {
     "@types/react": "~19.1.0",
     "babel-plugin-module-resolver": "^5.0.2",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "^3.4.17",
     "typescript": "~5.9.2"
   },
   "private": true

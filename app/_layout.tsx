@@ -1,8 +1,9 @@
-import { Redirect, Stack } from 'expo-router';
+import '@shared/global.css';
+import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { QueryProvider } from '@shared/query/query-provider';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { useAuthStore } from '@modules/auth/store';
 
 export default function RootLayout() {
@@ -11,14 +12,14 @@ export default function RootLayout() {
 
   if (!isHydrated) {
     return (
-      <View style={styles.loading}>
+      <View className="flex-1 items-center justify-center bg-white">
         <ActivityIndicator size="large" color="#007AFF" />
       </View>
     );
   }
 
   return (
-    <GestureHandlerRootView style={styles.root}>
+    <GestureHandlerRootView className="flex-1">
       <QueryProvider>
         <StatusBar style="auto" />
         <Stack screenOptions={{ headerShown: false }}>
@@ -32,13 +33,3 @@ export default function RootLayout() {
     </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  root: { flex: 1 },
-  loading: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-});

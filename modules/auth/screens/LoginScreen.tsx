@@ -1,4 +1,4 @@
-import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, Text, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'expo-router';
@@ -26,15 +26,19 @@ export function LoginScreen() {
   return (
     <Screen>
       <KeyboardAvoidingView
-        style={styles.container}
+        className="flex-1 justify-center px-6"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.header}>
-          <Text style={styles.title}>Welcome back</Text>
-          <Text style={styles.subtitle}>Sign in to your account</Text>
+        <View className="mb-8">
+          <Text className="text-[32px] font-bold text-[#1C1C1E] mb-2">
+            Welcome back
+          </Text>
+          <Text className="text-base text-[#8E8E93]">
+            Sign in to your account
+          </Text>
         </View>
 
-        <View style={styles.form}>
+        <View className="gap-4">
           <Controller
             control={control}
             name="email"
@@ -77,10 +81,10 @@ export function LoginScreen() {
           />
         </View>
 
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>
+        <View className="mt-6 items-center">
+          <Text className="text-sm text-[#8E8E93]">
             Don't have an account?{' '}
-            <Link href="/register" style={styles.link}>
+            <Link href="/register" className="text-[#007AFF] font-semibold">
               Sign Up
             </Link>
           </Text>
@@ -89,39 +93,3 @@ export function LoginScreen() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 24,
-  },
-  header: {
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#1C1C1E',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#8E8E93',
-  },
-  form: {
-    gap: 16,
-  },
-  footer: {
-    marginTop: 24,
-    alignItems: 'center',
-  },
-  footerText: {
-    fontSize: 14,
-    color: '#8E8E93',
-  },
-  link: {
-    color: '#007AFF',
-    fontWeight: '600',
-  },
-});

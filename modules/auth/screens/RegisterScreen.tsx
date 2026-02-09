@@ -1,4 +1,4 @@
-import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'expo-router';
@@ -27,19 +27,23 @@ export function RegisterScreen() {
   return (
     <Screen>
       <KeyboardAvoidingView
-        style={styles.flex}
+        className="flex-1"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
-          contentContainerStyle={styles.container}
+          contentContainerClassName="flex-grow justify-center px-6 py-8"
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.header}>
-            <Text style={styles.title}>Create account</Text>
-            <Text style={styles.subtitle}>Sign up to get started</Text>
+          <View className="mb-8">
+            <Text className="text-[32px] font-bold text-[#1C1C1E] mb-2">
+              Create account
+            </Text>
+            <Text className="text-base text-[#8E8E93]">
+              Sign up to get started
+            </Text>
           </View>
 
-          <View style={styles.form}>
+          <View className="gap-4">
             <Controller
               control={control}
               name="name"
@@ -115,10 +119,10 @@ export function RegisterScreen() {
             />
           </View>
 
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>
+          <View className="mt-6 items-center">
+            <Text className="text-sm text-[#8E8E93]">
               Already have an account?{' '}
-              <Link href="/login" style={styles.link}>
+              <Link href="/login" className="text-[#007AFF] font-semibold">
                 Sign In
               </Link>
             </Text>
@@ -128,43 +132,3 @@ export function RegisterScreen() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-  },
-  container: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 24,
-    paddingVertical: 32,
-  },
-  header: {
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#1C1C1E',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#8E8E93',
-  },
-  form: {
-    gap: 16,
-  },
-  footer: {
-    marginTop: 24,
-    alignItems: 'center',
-  },
-  footerText: {
-    fontSize: 14,
-    color: '#8E8E93',
-  },
-  link: {
-    color: '#007AFF',
-    fontWeight: '600',
-  },
-});

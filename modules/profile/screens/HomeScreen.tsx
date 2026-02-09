@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Screen } from '@shared/ui/screen';
 import { useAuthStore } from '@modules/auth/store';
 
@@ -7,31 +7,12 @@ export function HomeScreen() {
 
   return (
     <Screen>
-      <View style={styles.container}>
-        <Text style={styles.greeting}>
+      <View className="flex-1 justify-center items-center px-6">
+        <Text className="text-[28px] font-bold text-[#1C1C1E] mb-2">
           Hello, {user?.name ?? 'there'}
         </Text>
-        <Text style={styles.subtitle}>Welcome to Expo Stack</Text>
+        <Text className="text-base text-[#8E8E93]">Welcome to Expo Stack</Text>
       </View>
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 24,
-  },
-  greeting: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#1C1C1E',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#8E8E93',
-  },
-});

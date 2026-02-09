@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Screen } from '@shared/ui/screen';
@@ -49,8 +49,8 @@ export function ProfileScreen() {
   if (isLoading) {
     return (
       <Screen>
-        <View style={styles.centered}>
-          <Text style={styles.loadingText}>Loading profile...</Text>
+        <View className="flex-1 justify-center items-center">
+          <Text className="text-base text-[#8E8E93]">Loading profile...</Text>
         </View>
       </Screen>
     );
@@ -59,18 +59,18 @@ export function ProfileScreen() {
   return (
     <Screen>
       <ScrollView
-        contentContainerStyle={styles.container}
+        contentContainerClassName="px-6 py-8 items-center"
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.avatar}>
-          <Text style={styles.avatarText}>
+        <View className="w-20 h-20 rounded-full bg-[#007AFF] justify-center items-center mb-3">
+          <Text className="text-[32px] font-bold text-white">
             {profile?.name?.charAt(0)?.toUpperCase() ?? '?'}
           </Text>
         </View>
 
-        <Text style={styles.email}>{profile?.email}</Text>
+        <Text className="text-sm text-[#8E8E93] mb-8">{profile?.email}</Text>
 
-        <View style={styles.form}>
+        <View className="w-full gap-4">
           <Controller
             control={control}
             name="name"
@@ -95,7 +95,8 @@ export function ProfileScreen() {
                 placeholder="Tell us about yourself"
                 multiline
                 numberOfLines={3}
-                style={styles.bioInput}
+                className="min-h-[80px]"
+                style={{ textAlignVertical: 'top' }}
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
@@ -111,7 +112,7 @@ export function ProfileScreen() {
           />
         </View>
 
-        <View style={styles.logoutSection}>
+        <View className="w-full mt-10">
           <Button
             title="Sign Out"
             variant="outline"
@@ -123,51 +124,3 @@ export function ProfileScreen() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 24,
-    paddingVertical: 32,
-    alignItems: 'center',
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    fontSize: 16,
-    color: '#8E8E93',
-  },
-  avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#007AFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  avatarText: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#fff',
-  },
-  email: {
-    fontSize: 14,
-    color: '#8E8E93',
-    marginBottom: 32,
-  },
-  form: {
-    width: '100%',
-    gap: 16,
-  },
-  bioInput: {
-    minHeight: 80,
-    textAlignVertical: 'top',
-  },
-  logoutSection: {
-    width: '100%',
-    marginTop: 40,
-  },
-});
