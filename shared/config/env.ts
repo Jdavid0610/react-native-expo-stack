@@ -1,11 +1,13 @@
-import Config from 'react-native-config';
-
 export const env = {
-  API_URL: Config.API_URL ?? 'https://api.example.com',
-  API_TIMEOUT: Number(Config.API_TIMEOUT ?? 15000),
-  APP_ENV: (Config.APP_ENV ?? 'development') as 'development' | 'staging' | 'production',
+  API_URL: process.env.EXPO_PUBLIC_API_URL ?? "https://api.example.com",
+  API_TIMEOUT: Number(process.env.EXPO_PUBLIC_API_TIMEOUT ?? 15000),
+  APP_ENV: (process.env.EXPO_PUBLIC_APP_ENV ?? "development") as
+    | "development"
+    | "staging"
+    | "production",
+  STUB_STRATEGY: process.env.EXPO_PUBLIC_STUB_STRATEGY === "true",
 } as const;
 
-export const isDev = env.APP_ENV === 'development';
-export const isStaging = env.APP_ENV === 'staging';
-export const isProd = env.APP_ENV === 'production';
+export const isDev = env.APP_ENV === "development";
+export const isStaging = env.APP_ENV === "staging";
+export const isProd = env.APP_ENV === "production";

@@ -1,8 +1,8 @@
-import axios from 'axios';
-import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
-import { authStore } from '@shared/storages/auth.store';
-import { AUTH_INITIAL_STATE } from '@shared/utils/constants';
-import { env } from '@shared/config/env';
+import axios from "axios";
+import type { AxiosError, InternalAxiosRequestConfig } from "axios";
+import { authStore } from "@shared/storages/auth.store";
+import { AUTH_INITIAL_STATE } from "@shared/utils/constants";
+import { env } from "../config/env";
 
 export type ApiResponse<T> = {
   data: T;
@@ -24,7 +24,7 @@ export const apiClient = axios.create({
   baseURL: env.API_URL,
   timeout: env.API_TIMEOUT,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 

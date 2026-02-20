@@ -4,19 +4,19 @@ Production-ready React Native starter built with Expo, following domain-driven m
 
 ## Tech Stack
 
-| Category | Technology |
-|---|---|
-| Framework | Expo SDK 54, React Native 0.81, React 19 |
-| Language | TypeScript 5.9 (strict mode) |
-| Routing | Expo Router v6 (file-based) |
-| Server State | @tanstack/react-query v5 |
-| Client State | Zustand v5 |
-| Forms | react-hook-form v7 + zod v4 + @hookform/resolvers v5 |
-| HTTP | Axios with interceptors |
-| Storage | react-native-mmkv v4 |
-| Styling | NativeWind v4 (Tailwind CSS) |
-| Animations | react-native-reanimated v4 |
-| Env Config | react-native-config |
+| Category     | Technology                                           |
+| ------------ | ---------------------------------------------------- |
+| Framework    | Expo SDK 54, React Native 0.81, React 19             |
+| Language     | TypeScript 5.9 (strict mode)                         |
+| Routing      | Expo Router v6 (file-based)                          |
+| Server State | @tanstack/react-query v5                             |
+| Client State | Zustand v5                                           |
+| Forms        | react-hook-form v7 + zod v4 + @hookform/resolvers v5 |
+| HTTP         | Axios with interceptors                              |
+| Storage      | react-native-mmkv v4                                 |
+| Styling      | NativeWind v4 (Tailwind CSS)                         |
+| Animations   | react-native-reanimated v4                           |
+| Env Config   | react-native-config                                  |
 
 ## Architecture
 
@@ -125,15 +125,19 @@ React Query hooks wrap service calls. Mutations handle side effects in `onSucces
 
 ```typescript
 // Query with key factory
-const profileKeys = { all: ['profile'], detail: () => [...profileKeys.all, 'detail'] };
+const profileKeys = {
+  all: ["profile"],
+  detail: () => [...profileKeys.all, "detail"],
+};
 
 // Mutation with cache invalidation
-const updateProfile = useUpdateProfile();  // invalidates profileKeys.all on success
+const updateProfile = useUpdateProfile(); // invalidates profileKeys.all on success
 ```
 
 ### API Client
 
 Axios instance with two interceptors:
+
 - **Request**: Attaches `Authorization: Bearer <token>` from auth store
 - **Response**: Resets auth state on 401 responses
 
@@ -198,6 +202,7 @@ shared/api/
 ```
 
 **Benefits**:
+
 - Each endpoint is self-contained with its own types and logic
 - Easy to locate any API call by resource + method + name
 - Interfaces stay co-located with their endpoint, avoiding a centralized types file
@@ -209,35 +214,41 @@ shared/api/
 MMKV v4 provides fast key-value storage. Zustand's persist middleware uses a custom storage adapter:
 
 ```typescript
-const storage = createMMKV({ id: 'expo-stack-storage' });
+const storage = createMMKV({ id: "expo-stack-storage" });
 
 // Zustand adapter
 const zustandStorage: StateStorage = {
-  setItem: (name, value) => { storage.set(name, value); },
-  getItem: (name) => { return storage.getString(name) ?? null; },
-  removeItem: (name) => { storage.remove(name); },
+  setItem: (name, value) => {
+    storage.set(name, value);
+  },
+  getItem: (name) => {
+    return storage.getString(name) ?? null;
+  },
+  removeItem: (name) => {
+    storage.remove(name);
+  },
 };
 ```
 
 ## Path Aliases
 
-| Alias | Path |
-|---|---|
-| `@/*` | `./*` |
-| `@shared/*` | `./shared/*` |
+| Alias        | Path          |
+| ------------ | ------------- |
+| `@/*`        | `./*`         |
+| `@shared/*`  | `./shared/*`  |
 | `@modules/*` | `./modules/*` |
 
 Configured in both `tsconfig.json` (for TypeScript) and `babel.config.js` (for Metro bundler).
 
 ## Naming Conventions
 
-| Type | Convention | Example |
-|---|---|---|
-| Screens | PascalCase | `LoginScreen.tsx` |
-| Hooks | camelCase | `useLogin.ts` |
-| Schemas | dot notation | `login.schema.ts` |
-| Services | flat file | `services.ts` |
-| Stores | dot notation | `auth.store.ts` |
+| Type     | Convention   | Example           |
+| -------- | ------------ | ----------------- |
+| Screens  | PascalCase   | `LoginScreen.tsx` |
+| Hooks    | camelCase    | `useLogin.ts`     |
+| Schemas  | dot notation | `login.schema.ts` |
+| Services | flat file    | `services.ts`     |
+| Stores   | dot notation | `auth.store.ts`   |
 
 ## Environment Setup
 
@@ -252,11 +263,11 @@ Environment variables are managed via `react-native-config` with typed access:
 Variables are accessed through `shared/config/env.ts`:
 
 ```typescript
-import { env, isDev, isProd } from '@shared/config/env';
+import { env, isDev, isProd } from "@shared/config/env";
 
-env.API_URL      // string
-env.API_TIMEOUT  // number
-env.APP_ENV      // 'development' | 'staging' | 'production'
+env.EXPO_PUBLIC_API_URL; // string
+env.EXPO_PUBLIC_API_TIMEOUT; // number
+env.EXPO_PUBLIC_APP_ENV; // 'development' | 'staging' | 'production'
 ```
 
 ## Getting Started
@@ -266,7 +277,7 @@ env.APP_ENV      // 'development' | 'staging' | 'production'
 npm install
 
 # Start development server
-npx expo start
+npm prebuild
 
 # Run on iOS
 npx expo run:ios
