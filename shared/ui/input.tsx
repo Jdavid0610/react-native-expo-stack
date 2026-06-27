@@ -9,7 +9,7 @@ type Props = TextInputProps & {
 };
 
 export const Input = forwardRef<TextInput, Props>(
-  ({ label, error, containerClassName = '', className = '', ...rest }, ref) => {
+  ({ label, error, containerClassName = '', className = '', style, ...rest }, ref) => {
     return (
       <View className={`gap-1.5 ${containerClassName}`}>
         {label && (
@@ -19,7 +19,11 @@ export const Input = forwardRef<TextInput, Props>(
         )}
         <TextInput
           ref={ref}
-          className={`rounded-xl border px-4 py-3 text-base text-[#1C1C1E] bg-white min-h-[48px] ${error ? 'border-[#FF3B30]' : 'border-[#D1D1D6]'} ${className}`}
+          // Fixed height + horizontal-only padding lets the single-line text
+          // center natively. fontSize via style (not `text-base`) avoids the
+          // lineHeight that pushes glyphs to the top on iOS.
+          className={`rounded-xl border px-4 h-12 text-[#1C1C1E] bg-white ${error ? 'border-[#FF3B30]' : 'border-[#D1D1D6]'} ${className}`}
+          style={[{ fontSize: 16 }, style]}
           placeholderTextColor="#8E8E93"
           autoCorrect={false}
           {...rest}
